@@ -30,8 +30,10 @@
     }
   },
   "include": [
-    ".eslintrc.cjs",
+    ".eslintrc.ㅊjs",
     "next-env.d.ts",
+    "src/auth.ts",
+    "next.config.js",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
