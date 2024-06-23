@@ -14,18 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
 // Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
@@ -55,14 +43,17 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @default(now()) @updatedAt
+    categories    Category[]
+    Menus         Menu[]
 }
 
 model VerificationToken {
@@ -71,4 +62,37 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Item {
+    id         Int      @id @default(autoincrement())
+    name       String
+    category   Category @relation(fields: [categoryId], references: [id])
+    categoryId Int
+    price1     Float
+    price2     Float?
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @default(now()) @updatedAt
+}
+
+model Category {
+    id        Int      @id @default(autoincrement())
+    name      String
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    menu      Menu     @relation(fields: [menuId], references: [id])
+    menuId    Int
+    items     Item[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Menu {
+    id         Int        @id @default(autoincrement())
+    name       String
+    categories Category[]
+    user       User       @relation(fields: [userId], references: [id])
+    userId     String
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @default(now()) @updatedAt
 }
