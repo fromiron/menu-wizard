@@ -65,36 +65,46 @@ model VerificationToken {
 }
 
 model Item {
-    id         Int      @id @default(autoincrement())
-    name       String
-    category   Category @relation(fields: [categoryId], references: [id])
-    categoryId Int
-    price1     Float
-    price2     Float?
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @default(now()) @updatedAt
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?
+    category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId  Int
+    price1      Float
+    price2      Float?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Category {
-    id        Int      @id @default(autoincrement())
-    name      String
-    user      User     @relation(fields: [userId], references: [id])
-    userId    String
-    menu      Menu     @relation(fields: [menuId], references: [id])
-    menuId    String
-    items     Item[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?
+    user        User     @relation(fields: [userId], references: [id])
+    userId      String
+    menu        Menu     @relation(fields: [menuId], references: [id])
+    menuId      String
+    items       Item[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Menu {
-    id          String     @id @default(cuid())
+    id          String           @id @default(cuid())
     name        String
     description String?
     image       String?
     categories  Category[]
-    user        User       @relation(fields: [userId], references: [id])
+    user        User             @relation(fields: [userId], references: [id])
     userId      String
-    createdAt   DateTime   @default(now())
-    updatedAt   DateTime   @default(now()) @updatedAt
+    column      MenuColumnCount?
+    createdAt   DateTime         @default(now())
+    updatedAt   DateTime         @default(now()) @updatedAt
+}
+
+model MenuColumnCount {
+    id     Int    @id @default(autoincrement())
+    menu   Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
+    menuId String @unique
+    count  Int    @default(3)
 }

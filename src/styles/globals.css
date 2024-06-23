@@ -73,4 +73,17 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    .printable {
+      width: 210mm;
+      height: 297mm;
+      background-size: cover;
+    }
+  }
 }
