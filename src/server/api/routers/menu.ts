@@ -9,6 +9,8 @@ import {
 
 export const menuRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
+    console.log('[call getAll]', ctx.session.user?.id);
+
     const menus = await ctx.db.menu.findMany({
       include: {
         categories: {
@@ -55,7 +57,7 @@ export const menuRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string(),
+        name: z.string().min(1),
       }),
     )
     .mutation(async ({ input, ctx }) => {

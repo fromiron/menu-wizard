@@ -14,6 +14,9 @@ export function CreateMenu() {
       router.refresh();
       setName('');
     },
+    onError: (err) => {
+      console.error(err);
+    },
   });
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

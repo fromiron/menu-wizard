@@ -18,10 +18,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
-        <Header />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+    <html lang="ja" className={`${GeistSans.variable}`}>
+      <body className="min-h-screen bg-slate-100">
+        <TRPCReactProvider>
+          <Header />
+          {children}
+        </TRPCReactProvider>
       </body>
     </html>
   );

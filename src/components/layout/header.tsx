@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const Header = async () => {
   const session = await auth();
   return (
-    <div className="sticky top-0 flex h-16 w-screen items-center justify-between border-b border-gray-300 bg-stone-500 px-8 shadow-md drop-shadow-2xl">
+    <div className="mb-4 flex w-full items-center justify-between bg-stone-400 px-8 py-4">
       <div className="text-2xl font-bold">logo</div>
       <div className="flex gap-3">
         {session?.isLoggedIn
