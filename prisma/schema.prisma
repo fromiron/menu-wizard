@@ -81,18 +81,20 @@ model Category {
     user      User     @relation(fields: [userId], references: [id])
     userId    String
     menu      Menu     @relation(fields: [menuId], references: [id])
-    menuId    Int
+    menuId    String
     items     Item[]
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Menu {
-    id         Int        @id @default(autoincrement())
-    name       String
-    categories Category[]
-    user       User       @relation(fields: [userId], references: [id])
-    userId     String
-    createdAt  DateTime   @default(now())
-    updatedAt  DateTime   @default(now()) @updatedAt
+    id          String     @id @default(cuid())
+    name        String
+    description String?
+    image       String?
+    categories  Category[]
+    user        User       @relation(fields: [userId], references: [id])
+    userId      String
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @default(now()) @updatedAt
 }

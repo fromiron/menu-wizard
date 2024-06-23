@@ -33,7 +33,7 @@ export const menuRouter = createTRPCRouter({
   getById: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       }),
     )
     .query(async ({ input, ctx }) => {
@@ -58,6 +58,7 @@ export const menuRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().min(1),
+        description: z.string().optional(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -66,6 +67,7 @@ export const menuRouter = createTRPCRouter({
       return await ctx.db.menu.create({
         data: {
           name: input.name,
+          description: input.description,
           userId: ctx.session.user.id,
         },
       });
@@ -74,7 +76,7 @@ export const menuRouter = createTRPCRouter({
   update: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
         name: z.string().optional(),
       }),
     )
@@ -98,7 +100,7 @@ export const menuRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       }),
     )
     .mutation(async ({ input, ctx }) => {

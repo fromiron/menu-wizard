@@ -45,8 +45,9 @@ export const categoryRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string(),
-        menuId: z.number(),
+        name: z.string().min(1).max(30),
+
+        menuId: z.string(),
       }),
     )
     .mutation(async ({ input, ctx }) => {

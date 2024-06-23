@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
 } from '~/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { useRouter } from 'next/navigation';
 
 import {
   Card,
@@ -82,11 +83,21 @@ export const MenuSlider = ({ menus }: { menus: Menu[] }) => {
 };
 
 const MenuCard = ({ menu }: { menu: Menu }) => {
+  const router = useRouter();
+  const goToMenu = () => {
+    router.push(`/wizard/${menu.id}`);
+  };
   return (
-    <Card className="w-full select-none bg-red-500">
+    <Card className="relative w-full select-none bg-red-500">
       <CardHeader>
         <CardTitle className="break-all">{menu.name}</CardTitle>
-        <CardDescription>{menu.updatedAt.toUTCString()}</CardDescription>
+        <CardDescription>{menu.description}</CardDescription>
+        <div
+          className="absolute right-4 top-4 bg-blue-400 p-3"
+          onClick={goToMenu}
+        >
+          edit
+        </div>
       </CardHeader>
       <CardContent>
         <p>Card Content</p>
