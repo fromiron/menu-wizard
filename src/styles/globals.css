@@ -3,66 +3,41 @@
 @tailwind utilities;
 
 @layer base {
+  .bg-gradient {
+    background: var(--gradient);
+  }
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --gradient: linear-gradient(to top left, #141e30, #243b55);
+    --background: 232 97.05% 98.26%;
+    --foreground: 232 4.1% 0.52%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --muted: 232 4.1% 91.3%;
+    --muted-foreground: 232 2.05% 41.3%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover: 232 57.2% 91.3%;
+    --popover-foreground: 232 4.1% 0.65%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --card: 232 57.2% 91.3%;
+    --card-foreground: 232 4.1% 0.65%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --border: 232 9.1% 89.52%;
+    --input: 232 9.1% 89.52%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --primary: 232 41% 13%;
+    --primary-foreground: 232 0.82% 91.3%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --secondary: 232 2.05% 95.65%;
+    --secondary-foreground: 232 3.46% 11.3%;
+
+    --accent: 232 2.05% 95.65%;
+    --accent-foreground: 232 3.46% 11.3%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --ring: 232 41% 13%;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
   }
 }
 

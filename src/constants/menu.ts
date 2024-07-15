@@ -1,0 +1,3 @@
+export const DEFAULT_MENU_COLUMN_COUNT = 2;
+export const MAXIMUM_MENU_COLUMN_COUNT = 4;
+export const MINIMUM_MENU_COLUMN_COUNT = 1;

@@ -1,29 +1,25 @@
-# Create T3 App
+# Menu Wizard
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Menu Wizardは、メニューボードを簡単に作成できるウェブアプリケーションです。
 
-## What's next? How do I make an app with this?
+## 機能
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- 各カテゴリーのメニュー項目を登録
+- カテゴリーとメニュー項目をドラッグ＆ドロップで並べ替え
+- 出力サイズの指定
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 完了した機能
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- [x] カラムのソート
+- [x] カラム間のカテゴリー移動
+- [x] カテゴリー内のアイテム移動
+- [x] 他のカテゴリーへのアイテム移動
+- [x] 出力サイズの指定
+- [x] カラム数の指定
 
-## Learn More
+## TODOリスト
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- [ ] メニュー分析機能
+- [ ] QRコード作成機能
+- [ ] 印刷領域指定印刷
+- [ ] メニュー翻訳機能

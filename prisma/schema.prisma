@@ -54,6 +54,8 @@ model User {
     updatedAt     DateTime   @default(now()) @updatedAt
     categories    Category[]
     Menus         Menu[]
+
+    @@unique([id])
 }
 
 model VerificationToken {
@@ -69,42 +71,44 @@ model Item {
     name        String
     description String?
     category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-    categoryId  Int
+    categoryId  String
     price1      Float
     price2      Float?
+    reverse     Boolean  @default(false)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Category {
-    id          Int      @id @default(autoincrement())
+    id          String   @id @default(cuid())
     name        String
     description String?
     user        User     @relation(fields: [userId], references: [id])
     userId      String
     menu        Menu     @relation(fields: [menuId], references: [id])
     menuId      String
+    itemSort    Int[]
     items       Item[]
+    column      Int      @default(0)
+    order       Int      @default(0)
+    reverse     Boolean  @default(false)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
+
+    @@unique([id, userId])
 }
 
 model Menu {
-    id          String           @id @default(cuid())
+    id          String     @id @default(cuid())
     name        String
     description String?
     image       String?
     categories  Category[]
-    user        User             @relation(fields: [userId], references: [id])
+    user        User       @relation(fields: [userId], references: [id])
     userId      String
-    column      MenuColumnCount?
-    createdAt   DateTime         @default(now())
-    updatedAt   DateTime         @default(now()) @updatedAt
-}
+    column      Int        @default(2)
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @default(now()) @updatedAt
 
-model MenuColumnCount {
-    id     Int    @id @default(autoincrement())
-    menu   Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
-    menuId String @unique
-    count  Int    @default(3)
+    @@unique([id, userId])
 }

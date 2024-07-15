@@ -1,3 +1,5 @@
-export default async function Home() {
-  return <main className="">Home</main>;
+import Home from './home/page';
+
+export default async function App() {
+  return <Home />;
 }

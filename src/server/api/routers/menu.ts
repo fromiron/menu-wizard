@@ -27,7 +27,6 @@ export const menuRouter = createTRPCRouter({
     }
     return menus;
   }),
-
   getById: protectedProcedure
     .input(
       z.object({
@@ -52,61 +51,6 @@ export const menuRouter = createTRPCRouter({
       return menu;
     }),
 
-  getByIdWithColumnCount: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      }),
-    )
-    .query(async ({ input, ctx }) => {
-      const menu = await ctx.db.menu.findUnique({
-        where: { id: input.id, userId: ctx.session.user?.id },
-        include: {
-          categories: {
-            include: {
-              items: true,
-            },
-          },
-          column: true,
-        },
-      });
-
-      if (!menu) {
-        throw new TRPCError({ message: 'Menu not found', code: 'NOT_FOUND' });
-      }
-      return menu;
-    }),
-
-  changeColumnCount: protectedProcedure
-    .input(
-      z.object({
-        count: z
-          .number()
-          .min(1, '変更範囲は１から５までです。')
-          .max(5, '変更範囲は１から５までです。'),
-        menuId: z.string().min(1),
-      }),
-    )
-    .mutation(async ({ input, ctx }) => {
-      const menuColumnCount = await ctx.db.menuColumnCount.findUnique({
-        where: { menuId: input.menuId },
-      });
-
-      if (!menuColumnCount) {
-        throw new TRPCError({
-          message: 'ColumnCount not found',
-          code: 'NOT_FOUND',
-        });
-      }
-
-      return await ctx.db.menuColumnCount.update({
-        where: { menuId: input.menuId },
-        data: {
-          count: input.count,
-        },
-      });
-    }),
-
   create: protectedProcedure
     .input(
       z.object({
@@ -115,8 +59,6 @@ export const menuRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      console.log('ctx.session.user', ctx.session.user);
-
       return await ctx.db.menu.create({
         data: {
           name: input.name,

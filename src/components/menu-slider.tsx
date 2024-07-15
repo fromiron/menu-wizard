@@ -43,7 +43,7 @@ export const MenuSlider = ({ menus }: { menus: Menu[] }) => {
   return (
     <div className="block">
       <Carousel
-        className="w-full overflow-hidden"
+        className="w-full"
         setApi={setApi}
         opts={{
           dragFree: true,

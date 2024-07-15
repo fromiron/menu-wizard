@@ -22,7 +22,7 @@ export const categoryRouter = createTRPCRouter({
   getById: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       }),
     )
     .query(async ({ input, ctx }) => {
@@ -46,7 +46,6 @@ export const categoryRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().min(1).max(30),
-
         menuId: z.string(),
       }),
     )
@@ -71,7 +70,7 @@ export const categoryRouter = createTRPCRouter({
   update: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
         name: z.string().optional(),
       }),
     )
@@ -98,7 +97,7 @@ export const categoryRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(
       z.object({
-        id: z.number(),
+        id: z.string(),
       }),
     )
     .mutation(async ({ input, ctx }) => {

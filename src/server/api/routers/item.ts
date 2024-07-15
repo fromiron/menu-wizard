@@ -45,7 +45,7 @@ export const itemRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        categoryId: z.number(),
+        categoryId: z.string(),
         price1: z.number(),
         price2: z.number().optional(),
       }),
@@ -65,9 +65,13 @@ export const itemRouter = createTRPCRouter({
       return await ctx.db.item.create({
         data: {
           name: input.name,
-          categoryId: input.categoryId,
           price1: input.price1,
           price2: input.price2,
+          category: {
+            connect: {
+              id: input.categoryId,
+            },
+          },
         },
       });
     }),
