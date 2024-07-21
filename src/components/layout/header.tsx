@@ -1,4 +1,4 @@
-import { Button } from '~/components/ui/button';
+import { buttonVariants } from '~/components/ui/button';
 import { auth } from '~/auth';
 import Link from 'next/link';
 
@@ -10,17 +10,28 @@ export const Header = async () => {
       <div className="flex gap-3">
         {session?.isLoggedIn
           ? signinUserMenu.map((menu) => (
-              <Link key={menu.name} href={menu.href}>
-                <Button variant="ghost">{menu.name}</Button>
+              <Link
+                key={menu.name}
+                href={menu.href}
+                className={buttonVariants({ variant: 'outline' })}
+              >
+                {menu.name}
               </Link>
             ))
           : nonSigninUserMenu.map((menu) => (
-              <Link key={menu.name} href={menu.href}>
-                <Button variant="ghost">{menu.name}</Button>
+              <Link
+                key={menu.name}
+                href={menu.href}
+                className={buttonVariants({ variant: 'outline' })}
+              >
+                {menu.name}
               </Link>
             ))}
-        <Link href={session ? '/api/auth/signout' : '/api/auth/signin'}>
-          <Button variant="outline">{session ? 'Sign out' : 'Sign in'}</Button>
+        <Link
+          href={session ? '/api/auth/signout' : '/api/auth/signin'}
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          {session ? 'Sign out' : 'Sign in'}
         </Link>
       </div>
     </div>

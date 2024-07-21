@@ -48,7 +48,7 @@ const CategoryContainer = ({ category }: Props) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {category?.items?.map((item, index) => (
               <Draggable
-                key={item.id}
+                key={`item-${item.id}`}
                 draggableId={item.id.toString()}
                 index={index}
               >

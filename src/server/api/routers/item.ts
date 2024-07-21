@@ -46,8 +46,9 @@ export const itemRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         categoryId: z.string(),
+        description: z.string().nullable().optional(),
         price1: z.number(),
-        price2: z.number().optional(),
+        price2: z.number().nullable(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -65,6 +66,7 @@ export const itemRouter = createTRPCRouter({
       return await ctx.db.item.create({
         data: {
           name: input.name,
+          description: input.description,
           price1: input.price1,
           price2: input.price2,
           category: {
@@ -80,9 +82,9 @@ export const itemRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-        name: z.string().optional(),
-        price1: z.number().optional(),
-        price2: z.number().optional(),
+        name: z.string(),
+        price1: z.number(),
+        price2: z.number().nullable(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
