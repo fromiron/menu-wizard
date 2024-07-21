@@ -55,7 +55,7 @@ const useStarGeometry = (starShape: Shape) => {
 };
 
 const Particle: React.FC = () => (
-  <div className="bg-gradient pointer-events-none fixed inset-0 -z-50">
+  <div className="pointer-events-none fixed inset-0 -z-50 bg-gradient">
     <Canvas camera={{ position: [0, 0, 20], fov: 75 }}>
       <directionalLight />
       <pointLight position={[-30, 0, -30]} power={10.0} />
@@ -75,9 +75,9 @@ const PointCircle: React.FC = () => {
 
   return (
     <group ref={ref}>
-      {[...pointsInner, ...pointsOuter].map((point) => (
+      {[...pointsInner, ...pointsOuter].map((point, i) => (
         <AnimatedStar
-          key={point.idx}
+          key={`star-${i}`}
           initialPosition={point.position}
           color={point.color}
         />
