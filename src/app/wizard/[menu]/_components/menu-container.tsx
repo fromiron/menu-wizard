@@ -90,7 +90,7 @@ const MenuContainer = ({ menu: initialData }: Props) => {
       (entries) => {
         const newOverflowing = entries
           .filter((entry) => !entry.isIntersecting)
-          .map((entry) => entry.target.getAttribute('data-category-id') || '');
+          .map((entry) => entry.target.getAttribute('data-category-id') ?? '');
         setOverflowingCategories(newOverflowing);
       },
       {
@@ -255,7 +255,7 @@ const MenuContainer = ({ menu: initialData }: Props) => {
           <div className="mt-2 flex gap-x-2">
             {columns.map((column, columnIndex) => (
               <Droppable
-                key={columnIndex}
+                key={`column-${columnIndex}`}
                 droppableId={`column-${columnIndex}`}
                 type="CATEGORY"
               >
@@ -267,7 +267,7 @@ const MenuContainer = ({ menu: initialData }: Props) => {
                   >
                     {column.map((category, index) => (
                       <Draggable
-                        key={category.id}
+                        key={`category-${category.id}`}
                         draggableId={category.id}
                         index={index}
                       >

@@ -1,8 +1,6 @@
 import { type Item } from '@prisma/client';
 import { useState } from 'react';
-import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
-import { TbArrowsLeftRight } from 'react-icons/tb';
 import ItemSettingPopover from './menu-popover';
 
 type Props = {

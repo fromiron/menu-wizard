@@ -16,26 +16,29 @@ import {
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { z } from 'zod';
-import { Button } from '~/components/ui/button';
+import { Button, buttonVariants } from '~/components/ui/button';
 import { type Item } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '~/lib/utils';
 import { Switch } from '~/components/ui/switch';
 import { useState } from 'react';
+import { useItem } from '~/hooks/useItem';
 
 const formSchema = z.object({
+  id: z.number(),
   name: z.string().min(2, {
     message: '２文字以上で入力してください',
   }),
-  description: z.string().optional(),
-  price1: z.coerce.number({
+  description: z.string().nullable().optional(),
+  price1: z.number({
     required_error: '値段を入力してください',
     invalid_type_error: '数字のみ入力できます',
   }),
-  price2: z.coerce
+  categoryId: z.string(),
+  price2: z
     .number({
       invalid_type_error: '数字のみ入力できます',
     })
+    .nullable()
     .optional(),
   reverse: z.boolean().optional().default(false),
 });
@@ -46,17 +49,19 @@ type Props = {
   item: Item;
 };
 const ItemSettingPopover = ({
-  className,
-  handleReverseLayout,
+  // className,
+  // handleReverseLayout,
   item,
 }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: item.id,
       name: item.name,
-      description: item.description ?? undefined,
+      description: item.description ?? '',
+      categoryId: item.categoryId,
       price1: item.price1,
-      price2: item.price2 ?? undefined,
+      price2: item.price2 ?? 0,
       reverse: item.reverse,
     },
   });
@@ -64,9 +69,10 @@ const ItemSettingPopover = ({
   const price1 = useWatch({ control: form.control, name: 'price1' });
   const price2 = useWatch({ control: form.control, name: 'price2' });
   const price3 = Number(price1) + (Number(price2) || 0);
+  const { handleSubmit } = useItem();
+
   const onCheckedChange = () => {
     setReverseLayout((prev) => !prev);
-    form.setValue('reverse', !reverseLayout);
   };
 
   const calculateTax = (percentage: number) => {
@@ -76,22 +82,41 @@ const ItemSettingPopover = ({
     }
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    console.log('loaaaaag', form.getValues());
+    // form;
+    const { id, name, description, price1, price2, categoryId } =
+      form.getValues();
+    handleSubmit({
+      id,
+      name,
+      reverse: reverseLayout,
+      description: description ?? null,
+      price1: Number(price1),
+      price2: price2 === null ? null : Number(price2),
+      categoryId,
+    });
+  };
   return (
     <Popover>
       <PopoverTrigger>
-        <Button size="iconRound" className={className} variant={'default'}>
+        <div
+          className={buttonVariants({ variant: 'default', size: 'iconRound' })}
+        >
           <MdEdit />
-        </Button>
+        </div>
       </PopoverTrigger>
       <PopoverContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormControl>
-              <Switch
-                checked={reverseLayout}
-                onCheckedChange={onCheckedChange}
-              />
+              <div>
+                配置反転
+                <Switch
+                  checked={reverseLayout}
+                  onCheckedChange={onCheckedChange}
+                />
+              </div>
             </FormControl>
             <FormField
               control={form.control}
@@ -126,7 +151,15 @@ const ItemSettingPopover = ({
                 <FormItem>
                   <FormLabel>価格</FormLabel>
                   <FormControl>
-                    <Input placeholder="price1" type="number" {...field} />
+                    <Input
+                      placeholder="price1"
+                      type="number"
+                      onChange={(e) => {
+                        const value =
+                          e.target.value === '' ? null : Number(e.target.value);
+                        field.onChange(value);
+                      }}
+                    />
                   </FormControl>
                   <FormDescription>
                     税込み価格を入力してください。price2を入力するとprice1は税抜き価格として表示されます。
@@ -142,23 +175,30 @@ const ItemSettingPopover = ({
                 <FormItem>
                   <FormLabel>
                     税金
-                    <Button
-                      className="float-end"
-                      size="iconRound"
+                    <div
+                      className="float-end cursor-pointer"
                       onClick={() => calculateTax(8)}
                     >
                       8%
-                    </Button>
-                    <Button
-                      size="iconRound"
-                      className="float-end mr-2"
+                    </div>
+                    <div
+                      className="float-end mr-2 cursor-pointer"
                       onClick={() => calculateTax(10)}
                     >
                       10%
-                    </Button>
+                    </div>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="price2" type="number" {...field} />
+                    <Input
+                      placeholder="price2"
+                      type="number"
+                      value={field.value ?? ''}
+                      onChange={(e) => {
+                        const value =
+                          e.target.value === '' ? null : Number(e.target.value);
+                        field.onChange(value);
+                      }}
+                    />
                   </FormControl>
                   <FormDescription>税金を入力してください。</FormDescription>
                   <FormMessage />

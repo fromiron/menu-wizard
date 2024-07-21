@@ -5,8 +5,6 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '~/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { useRouter } from 'next/navigation';
@@ -60,7 +58,7 @@ export const MenuSlider = ({ menus }: { menus: Menu[] }) => {
         <CarouselContent>
           {menus.map((menu, index) => (
             <CarouselItem
-              key={`menu_${menu.id}`}
+              key={`menu-${menu.id}`}
               className={cx('basis-1/2 transition-opacity', {
                 'opacity-80': current !== index + 1,
               })}
