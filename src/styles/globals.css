@@ -62,3 +62,11 @@
     }
   }
 }
+
+.component-selected {
+  @apply relative;
+}
+.component-selected::after {
+  content: ' ';
+  @apply pointer-events-none absolute left-0 top-0 block h-full w-full border border-dashed border-primary;
+}

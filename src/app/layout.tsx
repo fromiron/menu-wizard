@@ -31,9 +31,7 @@ export default async function RootLayout({
         <TRPCReactProvider>
           <Header />
           <main className="z-50">{children}</main>
-          <div className="relative">
-            <Particle />
-          </div>
+          <div className="relative">{/* <Particle /> */}</div>
         </TRPCReactProvider>
         <Toaster />
       </body>

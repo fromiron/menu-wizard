@@ -44,6 +44,7 @@ type Menu = {
 };
 const signinUserMenu: Menu[] = [
   { name: 'Wizard', href: '/wizard' },
+  { name: 'Test', href: '/test' },
   { name: 'Settings', href: '/settings' },
 ];
 

@@ -1,5 +1,4 @@
 import { api } from '~/trpc/server';
-import MenuContainer from './_components/menu-container';
 
 export default async function Menu({
   params: { menu: id },
@@ -11,10 +10,5 @@ export default async function Menu({
     return { id: '', name: '', description: '', categories: [] };
   });
 
-  return (
-    <main>
-      {menu && <MenuContainer menu={menu} />}
-      {/* TODO menuにカテゴリが無いときの表示 */}
-    </main>
-  );
+  return <main>{/* TODO menuにカテゴリが無いときの表示 */}</main>;
 }
